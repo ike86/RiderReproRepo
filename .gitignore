@@ -1,0 +1,16 @@
+# Visual Studio IDE
+.vs/
+*.suo
+*.user
+_ReSharper.*
+TestResults/
+
+# Build results
+bin
+obj
+
+# NuGet Packages
+packages
+
+# Windows
+/desktop.ini
