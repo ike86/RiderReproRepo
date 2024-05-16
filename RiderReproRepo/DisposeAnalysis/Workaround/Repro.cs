@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace RiderReproRepo.DisposeAnalysis.Workaround;
 
-public class Repro
+public sealed class Repro : IDisposable
 {
     private readonly CompositeDisposable disposer = new();
 
@@ -20,7 +20,7 @@ public class Repro
     public void Dispose() => disposer.Dispose();
 }
 
-public class AllGood
+public sealed class AllGood : IDisposable
 {
     private readonly CompositeDisposable disposer = new();
 
