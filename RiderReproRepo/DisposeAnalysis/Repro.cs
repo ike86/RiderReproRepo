@@ -22,6 +22,23 @@ public sealed class Repro : IDisposable
     public void Dispose() => disposer.Dispose();
 }
 
+public sealed class StaticInvokeRepro : IDisposable
+{
+    private readonly CompositeDisposable disposer = new();
+    
+    public StaticInvokeRepro()
+    {
+        DisposableByCtor = DisposableMixins.DisposeWith(new Disposable(), disposer);
+        DisposableByFactory = DisposableMixins.DisposeWith(new DisposableFactory().Create(), disposer);
+    }
+
+    public Disposable DisposableByCtor { get; }
+
+    public Disposable DisposableByFactory { get; }
+
+    public void Dispose() => disposer.Dispose();
+}
+
 [MustDisposeResource]
 public sealed class Disposable : IDisposable
 {
