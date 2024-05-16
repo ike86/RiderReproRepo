@@ -9,7 +9,10 @@ public sealed class Repro : IDisposable
     
     public Repro()
     {
-        DisposableByCtor = new Disposable().DisposeWith(disposer);
+        DisposableByCtor = 
+            // positive, as 3rd-party is not decorated with [HandlesResourceDisposal]
+            new Disposable()
+                .DisposeWith(disposer);
     }
 
     public Disposable DisposableByCtor { get; }
@@ -23,7 +26,11 @@ public sealed class StaticInvokeRepro : IDisposable
     
     public StaticInvokeRepro()
     {
-        DisposableByCtor = DisposableMixins.DisposeWith(new Disposable(), disposer);
+        DisposableByCtor = 
+            DisposableMixins.DisposeWith(
+                // positive, as 3rd-party is not decorated with [HandlesResourceDisposal]
+                new Disposable(),
+                disposer);
     }
 
     public Disposable DisposableByCtor { get; }

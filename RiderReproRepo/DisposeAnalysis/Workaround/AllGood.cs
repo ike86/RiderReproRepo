@@ -9,7 +9,10 @@ public class Repro
 
     public Repro()
     {
-        DisposableByCtor = new Disposable().DisposeWith(disposer);
+        DisposableByCtor = 
+            // false-positive, as code is decorated with [HandlesResourceDisposal]
+            new Disposable()
+                .DisposeWith(disposer);
     }
 
     public Disposable DisposableByCtor { get; }
@@ -23,7 +26,11 @@ public class AllGood
 
     public AllGood()
     {
-        DisposableByCtor = DisposableMixins.DisposeWith(new Disposable(), disposer);
+        DisposableByCtor = 
+            DisposableMixins.DisposeWith(
+                // negative, as expected
+                new Disposable(),
+                disposer);
     }
 
     public Disposable DisposableByCtor { get; }
